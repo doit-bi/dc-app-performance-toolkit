@@ -3,7 +3,6 @@ import string
 
 import urllib3
 
-
 from util.conf import JIRA_SETTINGS
 from util.api.jira_clients import JiraRestClient
 from util.project_paths import JIRA_DATASET_JQLS, JIRA_DATASET_SCRUM_BOARDS, JIRA_DATASET_KANBAN_BOARDS, \
@@ -74,6 +73,7 @@ def write_test_data_to_files(datasets):
     __write_to_file(JIRA_DATASET_KANBAN_BOARDS, kanban_boards)
 
     users = [f"{user['name']},{DEFAULT_USER_PASSWORD}" for user in datasets[USERS]]
+    users.insert(0, f"{'admin'},{'admin'}")
     __write_to_file(JIRA_DATASET_USERS, users)
 
     issues = [f"{issue['key']},{issue['id']},{issue['key'].split('-')[0]}" for issue in datasets[ISSUES]]
